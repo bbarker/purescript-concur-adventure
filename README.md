@@ -1,12 +1,12 @@
-# Purescript Concur VDom Starter
+# Purescript Concur Starter
 
-A Starter kit for Purescript-Concur-VDom. Uses Npm, Spago, Google Closure Compiler, and Parcel. Builds tiny 60KB uncompressed bundles!
+A Starter kit for Purescript-Concur. Uses Npm, Spago, Google Closure Compiler, and Parcel. Builds tiny 180KB uncompressed bundles!
 
 ## Usage
 
 ### Grab the code
 
-> git clone https://github.com/purescript-concur/purescript-concur-vdom-starter.git
+> git clone https://github.com/purescript-concur/purescript-concur-starter.git
 
 Don't forget to tweak the project name and other details in package.json and bower.json
 

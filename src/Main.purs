@@ -2,17 +2,17 @@ module Main where
 
 import Prelude
 
-import Concur.VDom.DOM as D
-import Concur.VDom.Run (runWidgetInDom)
+import Concur.Core (Widget)
+import Concur.React (HTML)
+import Concur.React.DOM as D
+import Concur.React.Props as P
+import Concur.React.Run (runWidgetInDom)
 import Effect (Effect)
-import SlowButtonList (hugeButtonListDemo)
-import Widgets.SimpleCalculatorWidget (widget)
+
+hello :: forall a. Widget HTML a
+hello = do
+  void $ D.button [P.onClick] [D.text "Say Hello"]
+  D.text "Hello Sailor!"
 
 main :: Effect Unit
-main = runWidgetInDom "concur" do
-  D.node "div" []
-    [ D.node "h2" [] [D.text "Simple Calculator"]
-    , widget
-    , D.node "h2" [] [D.text "Huge Button List"]
-    , hugeButtonListDemo 10000
-    ]
+main = runWidgetInDom "root" hello
