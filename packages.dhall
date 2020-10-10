@@ -114,11 +114,36 @@ let mkPackage =
 let upstream =
       https://github.com/purescript/package-sets/releases/download/psc-0.13.6-20200507/packages.dhall sha256:9c1e8951e721b79de1de551f31ecb5a339e82bbd43300eb5ccfb1bf8cf7bbd62
 
-let overrides =
+{- let overrides =
       { concur-vdom = ../purescript-concur-vdom/spago.dhall as Location
       , concur-core = ../purescript-concur-core/spago.dhall as Location
       }
+ -}
+let overrides = {=}
 
-let additions = {=}
+-- let additions = {=}
+let additions = {
+  concur-vdom = 
+    { dependencies =
+      [ "aff"
+      , "arrays"
+      , "avar"
+      , "concur-core"
+      , "console"
+      , "foldable-traversable"
+      , "free"
+      , "halogen-vdom"
+      , "nonempty"
+      , "profunctor-lenses"
+      , "tailrec"
+      , "web-dom"
+      , "web-html"
+      ]
+    , repo =
+        "https://github.com/purescript-concur/purescript-concur-vdom.git"
+    , version =
+        "dc3a6a0d9403a090623db05e8a50fd6bfd83fb76"  -- branch, tag, or commit hash
+    }
+}
 
 in  upstream // overrides // additions

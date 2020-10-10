@@ -10,3 +10,7 @@ html/index.js
 /.cache
 /dist
 /.spago
+
+# Container files
+.xdg_config_home
+dev_container.cid
