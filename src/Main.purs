@@ -27,10 +27,10 @@ derive instance newtypeStoryPage :: Newtype (StoryPage d n) _
 ---- Specific story implementation follows ----
 
 data StoryEvent =
-    One
-  | Two
-  | Three
-  | Four
+    Start
+  | MonoidPage
+  | MonadPage
+derive instance eqStoryEvent :: Eq StoryEvent
 
 -- | This is like the "main" loop of the game. In this implementation, we
 -- | always leave up the previous story view, below the current view,
@@ -47,17 +47,53 @@ runPage evs mD sp = D.div [] [
     addEv ev = A.snoc evs ev
 
 storyViewSt :: ∀ a. P.ReactProps a
-storyViewSt = P.classList $ map Just ["storystoryView"]
+storyViewSt = P.classList $ map Just ["storyView"]
 
 page1 :: StoryPage (Maybe Unit) StoryEvent
 page1 = StoryPage {
-  event : One
+  event : Start
 , storyView : D.div [storyViewSt] [
     D.text "And so begins a tale. A tale of widgets, monads, and monoids."
   ]
-, nextPage : (\_ _ -> page1 <$ D.button [P.onClick] [D.text "Page 1 Again!"] ) -- TODO
+, nextPage : (\_ _ -> D.div' [
+    monoidPage <$ D.button [P.onClick] [D.text "What's a monoid?"]
+  , monadPage <$ D.button [P.onClick] [D.text "What's a monad?"]
+  ])
 }
 
+-- TODO add links to wikipedia for monoid, and two for monoid
+
+monoidPage :: StoryPage (Maybe Unit) StoryEvent
+monoidPage = StoryPage {
+  event : MonoidPage
+, storyView : D.div [storyViewSt] [
+    D.text $ "A monoid is an algebraic structure with a "
+      <> "single associative binary operation and an identity element. "
+      <> "Examples include the real or natural numbers with either mutiplication "
+      <> "(with 1 as the identity) or addition (with 0 as the identity), "
+      <> "or strings with concatenation and the empty string \"\" as the identity."
+  ]
+, nextPage : (\evs _ ->
+  if A.last evs ==  Just MonadPage
+    then page1 <$ D.button [P.onClick] [D.text "Page 1 Again!"]
+    else monadPage <$ D.button [P.onClick] [D.text "What's a monad?"] )
+}
+
+-- TODO : make "do" bold
+monadPage :: StoryPage (Maybe Unit) StoryEvent
+monadPage = StoryPage {
+  event : MonadPage
+, storyView : D.div [storyViewSt] [
+    D.text $ "Without getting into the mathematical details, a monad is a construction "
+      <> " that allows sequencing operations together, in a manner similar to typical "
+      <> " procedural programming. In languages like PureScript and Haskell, it allows "
+      <> " for the use of do-notation."
+  ]
+, nextPage : (\evs _ ->
+  if A.last evs ==  Just MonoidPage
+    then page1 <$ D.button [P.onClick] [D.text "Page 1 Again!"]
+    else monoidPage <$ D.button [P.onClick] [D.text "What's a monoid?"] )
+}
 -- TODO: choose monad or monoid
 -- TODO: then make the remaining option whatever is left
 
