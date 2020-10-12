@@ -2,7 +2,7 @@ name: "Deploy"
 on:
   push:
     branches:
-      - master
+      - react
 jobs:
   buildDeploy:
     runs-on: ubuntu-latest
