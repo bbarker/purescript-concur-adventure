@@ -2,7 +2,7 @@
 
 A starter kit for making choose-your-own-adventure experiences
 with PureScript-Concur. These experiences could be games or simple
-stories. The current demo is relatively simple, though it does use
+stories. The [current demo](https://bbarker.github.io/purescript-concur-adventure/) is relatively simple, though it does use
 markup instead of plain text.
 
 Uses Npm, Spago, Google Closure Compiler, and Parcel. Builds tiny 180KB uncompressed bundles!
